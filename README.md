@@ -42,11 +42,9 @@ bank-management-system/
 1. Create a MySQL database named `bank_db`.
 CREATE DATABASE bank_db;
 USE bank_db;
-2.Ensure you have the required tables set up:
-users
-accounts
-transactions
+2.Ensure you have users,accounts,transactions.
 3.Update the database credentials in config.py to match your local MySQL setup:
+
 MYSQL_HOST = "localhost"
 MYSQL_USER = "root"
 MYSQL_PASSWORD = "your_password"     #change this to your password
@@ -56,6 +54,7 @@ MYSQL_DATABASE = "bank_db"
 
 1.Open a terminal in the project directory.
 2.Create a virtual environment(optional but highly recommended):
+
 python -m venv venv
 
 # on Windows:
@@ -64,12 +63,14 @@ venv\Scripts\activate
 source venv/bin/activate
 
 3.Install dependencies:
+
 pip install -r requirements.txt
 
 4.Run the Flask application:
+
 python app.py
 
-5.The API will be available at:http://127.0.0.1:5000.
+5.The API will be available at: http://127.0.0.1:5000
 
 ## 🧪 Testing with Postman
 
@@ -80,23 +81,22 @@ python app.py
 5. For POST requests, go to **Body → raw → JSON** and enter the request data.
 6. Click **Send** to view the response.
 
+## API Endpoints Summary
 
-📌 API Endpoints Summary
+1. USER APIs
+•POST /users - Create a new user
+•POST /login -User login authentication
+•GET /users -Fetch all users
+•GET /users/<user_id> - Get user details by ID
+•PUT /users/<user_id> - Update user information
+•DELETE /users/<user_id> - Delete a user
 
-👤 USER APIs
-•POST /users → Create a new user
-•POST /login → User login authentication
-•GET /users → Fetch all users
-•GET /users/<user_id> → Get user details by ID
-•PUT /users/<user_id> → Update user information
-•DELETE /users/<user_id> → Delete a user
+2.ACCOUNT APIs
+•POST /accounts - Create a new bank account
+•GET /accounts - Fetch all accounts
+•GET /accounts/<account_id> - Get account details by ID
+•DELETE /accounts/<account_id> - Delete a bank account
 
-🏦 ACCOUNT APIs
-•POST /accounts → Create a new bank account
-•GET /accounts → Fetch all accounts
-•GET /accounts/<account_id> → Get account details by ID
-•DELETE /accounts/<account_id> → Delete a bank account
-
-💳 TRANSACTION APIs
-•POST /transactions → Deposit / Withdraw / Transfer money
-•GET /transactions/<account_id> → Fetch transaction history of an account
+3. TRANSACTION APIs
+•POST /transactions - Deposit / Withdraw / Transfer money
+•GET /transactions/<account_id> - Fetch transaction history of an account
