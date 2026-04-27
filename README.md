@@ -27,7 +27,7 @@ bank-management-system/
 ├── config.py
 ├── requirements.txt
 ├── README.md
-└── .gitignore
+└──.gitignore
 
 ##  Setup Instructions
 
