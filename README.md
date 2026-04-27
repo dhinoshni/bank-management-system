@@ -44,7 +44,6 @@ CREATE DATABASE bank_db;
 USE bank_db;
 2.Ensure you have users,accounts,transactions.
 3.Update the database credentials in config.py to match your local MySQL setup:
-
 MYSQL_HOST = "localhost"
 MYSQL_USER = "root"
 MYSQL_PASSWORD = "your_password"     #change this to your password
@@ -56,14 +55,12 @@ MYSQL_DATABASE = "bank_db"
 2.Create a virtual environment(optional but highly recommended):
 
 python -m venv venv
-
 # on Windows:
 venv\Scripts\activate
 # on mac/Linux:
 source venv/bin/activate
 
 3.Install dependencies:
-
 pip install -r requirements.txt
 
 4.Run the Flask application:
