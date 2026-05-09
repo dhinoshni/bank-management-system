@@ -1,0 +1,67 @@
+/* full screen center */
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e6f0ff;
+}
+
+/* login box */
+.login-box {
+  background: white;
+  padding: 30px;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+}
+
+/* title */
+.login-box h2 {
+  margin-bottom: 20px;
+}
+
+/* input fields */
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* forgot password */
+.forgot {
+  font-size: 12px;
+  color: blue;
+  text-align: right;
+  cursor: pointer;
+}
+
+/* button */
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background: darkblue;
+}
+
+/* signup text */
+.signup {
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.signup span {
+  color: blue;
+  cursor: pointer;
+}

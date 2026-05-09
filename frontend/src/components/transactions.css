@@ -1,0 +1,188 @@
+.transactions-page{
+    min-height:100vh;
+    background:#f4f7fb;
+}
+
+/* FULL HEADER */
+.transactions-header{
+    width:100%;
+    height:90px;
+
+    background:linear-gradient(
+        to right,
+        #0f4db8,
+        #0b3d91
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:sticky;
+    top:0;
+
+    z-index:1000;
+
+    color:white;
+}
+
+/* TITLE */
+.transactions-header h2{
+    font-size:34px;
+    font-weight:600;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    position:absolute;
+    left:20px;
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    font-size:45px;
+
+    cursor:pointer;
+}
+
+/* CARD */
+.transactions-card{
+    width:95%;
+    max-width:1200px;
+
+    background:white;
+
+    margin:30px auto;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* FILTERS */
+.filter-section{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+
+    margin-bottom:30px;
+}
+
+.filter-section select,
+.filter-section input{
+    padding:16px;
+    border:1px solid #ccc;
+    border-radius:12px;
+    font-size:16px;
+
+    min-width:180px;
+}
+
+/* FILTER BUTTON */
+.filter-btn{
+    background:#165dff;
+    color:white;
+
+    border:none;
+
+    padding:16px 25px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:17px;
+}
+
+/* TABLE */
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#f1f4fa;
+}
+
+th,
+td{
+    padding:22px;
+    text-align:left;
+    border-bottom:1px solid #eee;
+
+    font-size:16px;
+}
+
+/* BADGES */
+.deposit{
+    background:#d1fae5;
+    color:#047857;
+
+    padding:8px 16px;
+
+    border-radius:20px;
+
+    font-size:15px;
+}
+
+.withdraw{
+    background:#fee2e2;
+    color:#b91c1c;
+
+    padding:8px 16px;
+
+    border-radius:20px;
+
+    font-size:15px;
+}
+
+/* AMOUNTS */
+.credit{
+    color:#059669;
+    font-weight:600;
+}
+
+.debit{
+    color:#dc2626;
+    font-weight:600;
+}
+
+/* BUTTON SECTION */
+.bottom-buttons{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-top:30px;
+}
+
+/* BUTTONS */
+.load-btn,
+.download-btn{
+    border:none;
+
+    padding:16px 24px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:17px;
+}
+
+.load-btn{
+    background:#e5e7eb;
+}
+
+.download-btn{
+    background:#165dff;
+    color:white;
+}

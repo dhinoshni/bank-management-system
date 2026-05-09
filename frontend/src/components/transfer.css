@@ -1,0 +1,174 @@
+.transfer-container{
+    min-height:100vh;
+    background:#f4f7fb;
+}
+
+/* TOP HEADER */
+.transfer-header{
+    width:100%;
+    height:80px;
+
+    background:linear-gradient(
+        to right,
+        #0f4db8,
+        #0b3d91
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    color:white;
+
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+
+    margin-bottom:30px;
+}
+
+.transfer-header h2{
+    font-size:32px;
+    font-weight:600;
+}
+
+.back-btn{
+    position:absolute;
+    left:20px;
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    font-size:32px;
+    cursor:pointer;
+}
+
+/* CARD */
+.transfer-card{
+    background:white;
+    padding:30px;
+
+    width:90%;
+    max-width:700px;
+
+    margin:auto;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.transfer-card h3{
+    margin-bottom:25px;
+    color:#0b3d91;
+}
+
+/* FORM */
+.form-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:20px;
+}
+
+.form-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+}
+
+.form-group textarea{
+    resize:none;
+    height:120px;
+}
+
+/* BUTTON */
+.transfer-btn{
+    background:#165dff;
+    color:white;
+
+    border:none;
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    margin-top:10px;
+}
+
+/* SUCCESS SCREEN */
+.success-container{
+    min-height:100vh;
+    background:#062a63;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+}
+
+.success-card{
+    background:white;
+
+    width:90%;
+    max-width:650px;
+
+    padding:50px;
+
+    border-radius:20px;
+
+    text-align:center;
+}
+
+.success-icon{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+.success-card h1{
+    font-size:48px;
+    margin-bottom:20px;
+    color:#062a63;
+}
+
+.success-card p{
+    font-size:22px;
+    color:#555;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+/* DASHBOARD BUTTON */
+.dashboard-btn{
+    background:#16a34a;
+    color:white;
+
+    border:none;
+
+    padding:16px 35px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:22px;
+}
