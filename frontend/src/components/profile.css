@@ -1,0 +1,325 @@
+.profile-page {
+  min-height: 100vh;
+  background: #f4f7fc;
+  padding-bottom: 40px;
+}
+
+.profile-header {
+  height: 115px;
+  background: linear-gradient(
+    135deg,
+    #1456b8,
+    #174b9e
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  color: white;
+}
+
+.profile-header h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.profile-back-btn {
+  position: absolute;
+  left: 35px;
+
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  background: transparent;
+  color: white;
+
+  font-size: 38px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-back-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.profile-card {
+  width: min(700px, calc(100% - 40px));
+
+  margin: 45px auto 0;
+
+  background: white;
+
+  border-radius: 25px;
+
+  padding: 45px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 8px 30px rgba(20, 60, 120, 0.12);
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+
+  background: #e9f0ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 48px;
+}
+
+.profile-card h2 {
+  margin: 0;
+
+  text-align: center;
+
+  color: #123f7a;
+
+  font-size: 30px;
+}
+
+.profile-subtitle {
+  text-align: center;
+
+  color: #71809b;
+
+  margin: 10px 0 35px;
+
+  font-size: 17px;
+}
+
+.profile-field {
+  margin-bottom: 24px;
+}
+
+.profile-field label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #123f7a;
+
+  font-size: 17px;
+
+  font-weight: 600;
+}
+
+.profile-field input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  height: 55px;
+
+  padding: 0 17px;
+
+  border: 1px solid #d4deef;
+
+  border-radius: 12px;
+
+  font-size: 17px;
+
+  outline: none;
+
+  color: #172b4d;
+
+  background: white;
+}
+
+.profile-field input:focus {
+  border-color: #2367d1;
+
+  box-shadow:
+    0 0 0 3px rgba(35, 103, 209, 0.1);
+}
+
+.profile-field input:disabled {
+  background: #f3f5f9;
+
+  color: #68758a;
+
+  cursor: not-allowed;
+}
+
+.profile-field small {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #8a95a8;
+
+  font-size: 13px;
+}
+
+.profile-buttons {
+  display: flex;
+
+  gap: 14px;
+
+  margin-top: 30px;
+}
+
+.profile-buttons button {
+  flex: 1;
+
+  height: 52px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.profile-edit-btn,
+.profile-save-btn {
+  background: #1764c0;
+
+  color: white;
+}
+
+.profile-edit-btn:hover,
+.profile-save-btn:hover {
+  background: #1052a4;
+}
+
+.profile-cancel-btn {
+  background: #edf1f7;
+
+  color: #36516f;
+}
+
+.profile-cancel-btn:hover {
+  background: #e0e6ef;
+}
+
+.profile-buttons button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+.profile-actions {
+  margin-top: 35px;
+
+  padding-top: 25px;
+
+  border-top: 1px solid #e3e8f1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.profile-actions button {
+  height: 50px;
+
+  border-radius: 10px;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.profile-logout-btn {
+  border: 1px solid #2367d1;
+
+  background: white;
+
+  color: #2367d1;
+}
+
+.profile-logout-btn:hover {
+  background: #f0f5ff;
+}
+
+.profile-delete-btn {
+  border: 1px solid #dc3545;
+
+  background: white;
+
+  color: #dc3545;
+}
+
+.profile-delete-btn:hover {
+  background: #fff0f1;
+}
+
+.profile-loading {
+  text-align: center;
+
+  color: #174b9e;
+
+  font-size: 20px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .profile-header {
+    height: 90px;
+  }
+
+  .profile-header h1 {
+    font-size: 28px;
+  }
+
+  .profile-back-btn {
+    left: 15px;
+
+    width: 55px;
+    height: 55px;
+
+    font-size: 30px;
+  }
+
+  .profile-card {
+    margin-top: 25px;
+
+    padding: 28px 20px;
+
+    width: calc(100% - 25px);
+
+    border-radius: 18px;
+  }
+
+  .profile-card h2 {
+    font-size: 25px;
+  }
+
+  .profile-buttons {
+    flex-direction: column;
+  }
+}

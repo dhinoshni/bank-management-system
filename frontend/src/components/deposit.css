@@ -1,0 +1,411 @@
+/* ==============================
+   DEPOSIT PAGE
+================================ */
+
+.deposit-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+
+/* ==============================
+   MAIN CARD
+================================ */
+
+.deposit-card {
+  width: 100%;
+  max-width: 760px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 42px 48px;
+  box-sizing: border-box;
+  box-shadow: 0 12px 35px rgba(18, 63, 120, 0.10);
+}
+
+
+/* ==============================
+   HEADER
+================================ */
+
+.deposit-header {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 35px;
+}
+
+.deposit-header h1 {
+  margin: 0;
+  color: #123f78;
+  font-size: 38px;
+  font-weight: 700;
+}
+
+.deposit-header p {
+  margin: 7px 0 0;
+  color: #6b7c93;
+  font-size: 17px;
+}
+
+
+/* ==============================
+   BACK BUTTON
+================================ */
+
+.deposit-back {
+  width: 54px;
+  height: 54px;
+  border: 1px solid #d9e3f1;
+  border-radius: 50%;
+  background: #f3f7fd;
+  color: #1854a0;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.deposit-back:hover {
+  background: #e8f0fb;
+  border-color: #b9cce5;
+}
+
+
+/* ==============================
+   ICON AREA
+================================ */
+
+.deposit-icon {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 40px;
+  border-radius: 20px;
+  background: #edf4ff;
+  color: #2167c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+
+/* ==============================
+   FORM GROUP
+================================ */
+
+.deposit-form-group {
+  margin-bottom: 26px;
+}
+
+.deposit-form-group label {
+  display: block;
+  margin-bottom: 10px;
+  color: #173f70;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+
+/* ==============================
+   ACCOUNT INPUT
+================================ */
+
+.account-search-wrapper {
+  width: 100%;
+}
+
+.account-input {
+  width: 100%;
+  height: 58px;
+  padding: 0 18px;
+  box-sizing: border-box;
+
+  border: 1px solid #d2ddec;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #173f70;
+
+  font-size: 17px;
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.account-input::placeholder {
+  color: #9aa8ba;
+}
+
+.account-input:focus {
+  border-color: #2d6cdf;
+  box-shadow: 0 0 0 4px rgba(45, 108, 223, 0.10);
+}
+
+
+/* ==============================
+   ACCOUNT HOLDER
+================================ */
+
+.account-holder {
+  margin-top: 10px;
+  padding: 13px 16px;
+
+  background: #f3f7fc;
+  border: 1px solid #e0e8f2;
+  border-radius: 10px;
+
+  color: #52667e;
+  font-size: 15px;
+}
+
+.account-holder strong {
+  color: #173f70;
+}
+
+
+/* ==============================
+   ACCOUNT ERROR
+================================ */
+
+.account-error {
+  margin-top: 10px;
+  color: #c62828;
+  font-size: 14px;
+}
+
+
+/* ==============================
+   AMOUNT
+================================ */
+
+.amount-input {
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid #d2ddec;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  transition: 0.2s ease;
+}
+
+.amount-input:focus-within {
+  border-color: #2d6cdf;
+  box-shadow: 0 0 0 4px rgba(45, 108, 223, 0.10);
+}
+
+.amount-input span {
+  padding-left: 18px;
+  color: #2167c7;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.amount-input input {
+  flex: 1;
+
+  height: 100%;
+  border: none;
+  outline: none;
+
+  padding: 0 15px;
+
+  color: #173f70;
+  background: transparent;
+
+  font-size: 17px;
+}
+
+.amount-input input::placeholder {
+  color: #9aa8ba;
+}
+
+
+/* ==============================
+   DEPOSIT BUTTON
+================================ */
+
+.deposit-submit {
+  width: 100%;
+  height: 60px;
+
+  margin-top: 12px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #2167d5;
+  color: #ffffff;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+
+  box-shadow: 0 8px 20px rgba(33, 103, 213, 0.18);
+}
+
+.deposit-submit:hover {
+  background: #1858bd;
+  transform: translateY(-1px);
+}
+
+.deposit-submit:disabled {
+  background: #aebbd0;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+
+/* ==============================
+   SUCCESS MESSAGE
+================================ */
+
+.success-message {
+  margin-top: 18px;
+
+  padding: 14px 16px;
+
+  border: 1px solid #c9e6d2;
+  border-radius: 10px;
+
+  background: #f0faf3;
+  color: #21733d;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  text-align: center;
+}
+
+
+/* ==============================
+   SECURE TEXT
+================================ */
+
+.secure-text {
+  margin: 22px 0 0;
+
+  text-align: center;
+
+  color: #7b8da3;
+
+  font-size: 14px;
+}
+
+
+/* ==============================
+   LOADING
+================================ */
+
+.loading-text {
+  padding: 16px;
+
+  border-radius: 10px;
+
+  background: #f5f8fc;
+
+  color: #6b7c93;
+
+  text-align: center;
+}
+
+
+/* ==============================
+   EMPTY ACCOUNT
+================================ */
+
+.empty-account {
+  padding: 20px;
+
+  border: 1px solid #e1e7ef;
+  border-radius: 12px;
+
+  background: #f8fafc;
+
+  text-align: center;
+}
+
+.empty-account p {
+  color: #68788d;
+}
+
+.empty-account button {
+  padding: 10px 18px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2167d5;
+  color: white;
+
+  cursor: pointer;
+}
+
+
+/* ==============================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+
+  .deposit-page {
+    padding: 20px 12px;
+  }
+
+  .deposit-card {
+    padding: 28px 20px;
+    border-radius: 18px;
+  }
+
+  .deposit-header {
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .deposit-header h1 {
+    font-size: 28px;
+  }
+
+  .deposit-header p {
+    font-size: 14px;
+  }
+
+  .deposit-back {
+    width: 46px;
+    height: 46px;
+  }
+
+  .deposit-icon {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 30px;
+  }
+
+  .deposit-form-group label {
+    font-size: 16px;
+  }
+
+  .account-input,
+  .amount-input {
+    height: 54px;
+  }
+
+  .deposit-submit {
+    height: 56px;
+    font-size: 17px;
+  }
+
+}

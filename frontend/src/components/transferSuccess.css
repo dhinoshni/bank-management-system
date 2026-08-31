@@ -1,0 +1,418 @@
+/* =========================================================
+   TRANSFER SUCCESS PAGE
+   ========================================================= */
+
+.transfer-success-page {
+  min-height: 100vh;
+  width: 100%;
+  background: #f4f7fb;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 45px 20px;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SUCCESS CARD
+   ========================================================= */
+
+.transfer-success-card {
+  width: 100%;
+  max-width: 720px;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  padding: 42px 52px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 10px 35px rgba(15, 52, 96, 0.10),
+    0 2px 8px rgba(15, 52, 96, 0.05);
+}
+
+
+/* =========================================================
+   SUCCESS ICON
+   ========================================================= */
+
+.success-icon {
+  width: 68px;
+  height: 68px;
+
+  margin: 0 auto 18px;
+
+  border-radius: 50%;
+
+  border: 3px solid #159447;
+
+  background: #f0fbf5;
+
+  color: #159447;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 42px;
+  font-weight: 600;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.success-header {
+  text-align: center;
+}
+
+.success-header h1 {
+  margin: 0;
+
+  color: #123f78;
+
+  font-size: 36px;
+  font-weight: 700;
+
+  letter-spacing: -0.5px;
+}
+
+.success-subtitle {
+  margin: 10px 0 0;
+
+  color: #6d83a0;
+
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   TRANSFER AMOUNT
+   ========================================================= */
+
+.success-amount {
+  text-align: center;
+
+  margin: 28px 0 32px;
+
+  color: #123f78;
+
+  font-size: 46px;
+  font-weight: 700;
+
+  letter-spacing: -1px;
+}
+
+
+/* =========================================================
+   TRANSACTION DETAILS
+   ========================================================= */
+
+.transaction-details {
+  border: 1px solid #dce5f0;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  background: #ffffff;
+}
+
+
+/* =========================================================
+   ACCOUNT DETAILS
+   ========================================================= */
+
+.transaction-party {
+  padding: 22px 26px;
+
+  background: #ffffff;
+}
+
+.party-label {
+  margin-bottom: 7px;
+
+  color: #71859f;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.party-account {
+  color: #123f78;
+
+  font-size: 21px;
+  font-weight: 650;
+
+  letter-spacing: 0.2px;
+}
+
+.party-name {
+  margin-top: 4px;
+
+  color: #506983;
+
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   TRANSFER ARROW
+   ========================================================= */
+
+.transfer-arrow {
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f3f7fc;
+
+  border-top: 1px solid #dce5f0;
+  border-bottom: 1px solid #dce5f0;
+
+  color: #1769c2;
+
+  font-size: 25px;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   TRANSACTION STATUS
+   ========================================================= */
+
+.transaction-status {
+  margin-top: 20px;
+
+  padding: 17px 22px;
+
+  border: 1px solid #c8ead7;
+
+  border-radius: 10px;
+
+  background: #f2fbf6;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.transaction-status span {
+  color: #657e98;
+
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.transaction-status strong {
+  color: #118443;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.success-actions {
+  margin-top: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+/* PRIMARY BUTTON */
+
+.success-done-btn {
+  width: 100%;
+
+  height: 54px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #1769c2;
+
+  color: #ffffff;
+
+  font-size: 17px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.success-done-btn:hover {
+  background: #1258a5;
+
+  box-shadow: 0 6px 16px rgba(23, 105, 194, 0.20);
+}
+
+.success-done-btn:active {
+  transform: translateY(1px);
+}
+
+
+/* HISTORY BUTTON */
+
+.view-history-btn {
+  width: 100%;
+
+  height: 48px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #1769c2;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  border-radius: 8px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.view-history-btn:hover {
+  background: #f1f6fc;
+
+  color: #1258a5;
+}
+
+
+/* =========================================================
+   UNAVAILABLE TRANSACTION
+   ========================================================= */
+
+.unavailable-card {
+  text-align: center;
+
+  padding: 60px 50px;
+}
+
+.unavailable-card h2 {
+  margin: 0 0 10px;
+
+  color: #123f78;
+
+  font-size: 26px;
+}
+
+.unavailable-card p {
+  margin: 0 0 28px;
+
+  color: #71859f;
+
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .transfer-success-page {
+    padding: 20px 14px;
+  }
+
+  .transfer-success-card {
+    padding: 32px 22px;
+
+    border-radius: 14px;
+  }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+
+    font-size: 36px;
+  }
+
+  .success-header h1 {
+    font-size: 29px;
+  }
+
+  .success-subtitle {
+    font-size: 15px;
+  }
+
+  .success-amount {
+    margin: 22px 0 26px;
+
+    font-size: 38px;
+  }
+
+  .transaction-party {
+    padding: 18px 20px;
+  }
+
+  .party-account {
+    font-size: 19px;
+  }
+
+  .transaction-status {
+    padding: 15px 17px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .transfer-success-card {
+    padding: 28px 16px;
+  }
+
+  .success-header h1 {
+    font-size: 25px;
+  }
+
+  .success-amount {
+    font-size: 34px;
+  }
+
+  .party-account {
+    font-size: 17px;
+  }
+
+  .transaction-status span,
+  .transaction-status strong {
+    font-size: 14px;
+  }
+
+}

@@ -1,0 +1,149 @@
+.withdraw-page {
+  min-height: 100vh;
+  background: #f4f7fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.withdraw-card {
+  width: 100%;
+  max-width: 650px;
+  background: white;
+  border-radius: 20px;
+  padding: 35px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.withdraw-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.withdraw-header h1 {
+  margin: 0;
+  color: #123d73;
+  font-size: 32px;
+}
+
+.withdraw-back-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #1d63c5;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.withdraw-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.withdraw-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.withdraw-field label {
+  font-size: 17px;
+  font-weight: 600;
+  color: #123d73;
+}
+
+.withdraw-field select,
+.withdraw-field input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #cbd8eb;
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.withdraw-field select:focus,
+.withdraw-field input:focus {
+  border-color: #1d63c5;
+}
+
+.withdraw-balance {
+  background: #eef5ff;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.withdraw-balance span {
+  color: #55749b;
+  font-size: 16px;
+}
+
+.withdraw-balance strong {
+  color: #123d73;
+  font-size: 22px;
+}
+
+.withdraw-error {
+  padding: 14px;
+  border-radius: 10px;
+  background: #ffeaea;
+  color: #d62828;
+  font-weight: 600;
+}
+
+.withdraw-success {
+  padding: 14px;
+  border-radius: 10px;
+  background: #e8f8ee;
+  color: #079447;
+  font-weight: 600;
+}
+
+.withdraw-submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #1d63c5;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.withdraw-submit-btn:hover {
+  background: #1555ad;
+}
+
+.withdraw-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.withdraw-cancel-btn {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #cbd8eb;
+  border-radius: 10px;
+  background: white;
+  color: #123d73;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.withdraw-cancel-btn:hover {
+  background: #f4f7fc;
+}
