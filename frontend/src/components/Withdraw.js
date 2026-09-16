@@ -216,10 +216,20 @@ function Withdraw() {
           })} withdrawn successfully.`
         );
 
-        // Go back to dashboard after 1 second
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 1000);
+        // -------------------------------------------------
+        // Notify Dashboard immediately
+        // -------------------------------------------------
+
+        window.dispatchEvent(
+          new Event("bankDataUpdated")
+        );
+
+        // -------------------------------------------------
+        // Go to Dashboard immediately
+        // No artificial delay
+        // -------------------------------------------------
+
+        navigate("/dashboard");
 
         return;
       }

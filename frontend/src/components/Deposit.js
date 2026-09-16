@@ -259,8 +259,20 @@ function Deposit() {
           );
         }
 
+        // ------------------------------------------------
+        // Notify Dashboard immediately
+        // ------------------------------------------------
+
+        window.dispatchEvent(
+          new Event("bankDataUpdated")
+        );
+
+        // ------------------------------------------------
         // Refresh account list
+        // ------------------------------------------------
+
         await fetchAccounts();
+
       } else {
         setErrorMessage(
           res.data?.message ||

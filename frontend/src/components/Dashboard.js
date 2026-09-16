@@ -257,241 +257,258 @@ function Dashboard() {
   // LOAD DASHBOARD DATA
   // ==========================================================
 
-  useEffect(() => {
+  const fetchDashboardData = useCallback(
+    async () => {
 
-    let mounted = true;
+      try {
 
+        // ==================================================
+        // GET ACCOUNTS FIRST
+        // ==================================================
 
-    const loadDashboardData =
-      async () => {
-
-        try {
-
-          // ==================================================
-          // GET ACCOUNTS FIRST
-          // ==================================================
-
-          const accountResponse =
-            await API.get(
-              "/accounts"
-            );
+        const accountResponse =
+          await API.get(
+            "/accounts"
+          );
 
 
-          if (!mounted) {
-            return;
-          }
+        if (
+          accountResponse.data?.status ===
+          "success"
+        ) {
 
-
-          if (
-            accountResponse.data?.status ===
-            "success"
-          ) {
-
-            const accountData =
-              Array.isArray(
-                accountResponse.data.data
-              )
-                ? accountResponse.data.data
-                : [];
-
-
-            setAccounts(
-              accountData
-            );
-
-          } else {
-
-            setAccounts([]);
-
-          }
-
-
-          // ==================================================
-          // GET TRANSACTIONS
-          // ==================================================
-
-          const transactionResponse =
-            await API.get(
-              "/transactions"
-            );
-
-
-          if (!mounted) {
-            return;
-          }
-
-
-          if (
-            transactionResponse.data?.status !==
-            "success"
-          ) {
-
-            setTransactions([]);
-
-            return;
-          }
-
-
-          const data =
+          const accountData =
             Array.isArray(
-              transactionResponse.data.data
+              accountResponse.data.data
             )
-              ? transactionResponse.data.data
+              ? accountResponse.data.data
               : [];
 
 
-          // ==================================================
-          // REMOVE DUPLICATES
-          // ==================================================
-
-          const transactionMap =
-            new Map();
-
-
-          data.forEach(
-            (transaction, index) => {
-
-              const transactionId =
-                transaction.transaction_id !==
-                  undefined &&
-                transaction.transaction_id !==
-                  null
-                  ? String(
-                      transaction.transaction_id
-                    )
-                  : `fallback-${index}`;
-
-
-              if (
-                !transactionMap.has(
-                  transactionId
-                )
-              ) {
-
-                transactionMap.set(
-                  transactionId,
-                  transaction
-                );
-
-              }
-
-            }
+          setAccounts(
+            accountData
           );
 
+        } else {
 
-          const uniqueTransactions =
-            Array.from(
-              transactionMap.values()
-            );
-
-
-          // ==================================================
-          // NEWEST FIRST
-          // ==================================================
-
-          uniqueTransactions.sort(
-            (a, b) => {
-
-              const dateA =
-                parseTransactionDate(
-                  a.created_at
-                );
-
-
-              const dateB =
-                parseTransactionDate(
-                  b.created_at
-                );
-
-
-              const timeA =
-                dateA
-                  ? dateA.getTime()
-                  : 0;
-
-
-              const timeB =
-                dateB
-                  ? dateB.getTime()
-                  : 0;
-
-
-              if (
-                timeA !== timeB
-              ) {
-
-                return (
-                  timeB - timeA
-                );
-
-              }
-
-
-              return (
-                Number(
-                  b.transaction_id || 0
-                ) -
-                Number(
-                  a.transaction_id || 0
-                )
-              );
-
-            }
-          );
-
-
-          setTransactions(
-            uniqueTransactions
-          );
-
-
-        } catch (err) {
-
-          console.error(
-            "Dashboard data error:",
-            err
-          );
-
-
-          if (
-            err.response?.status === 401
-          ) {
-
-            alert(
-              "Session expired. Please login again."
-            );
-
-
-            localStorage.clear();
-
-
-            navigate(
-              "/",
-              {
-                replace: true
-              }
-            );
-
-          }
+          setAccounts([]);
 
         }
 
-      };
+
+        // ==================================================
+        // GET TRANSACTIONS
+        // ==================================================
+
+        const transactionResponse =
+          await API.get(
+            "/transactions"
+          );
 
 
-    loadDashboardData();
+        if (
+          transactionResponse.data?.status !==
+          "success"
+        ) {
+
+          setTransactions([]);
+
+          return;
+        }
+
+
+        const data =
+          Array.isArray(
+            transactionResponse.data.data
+          )
+            ? transactionResponse.data.data
+            : [];
+
+
+        // ==================================================
+        // REMOVE DUPLICATES
+        // ==================================================
+
+        const transactionMap =
+          new Map();
+
+
+        data.forEach(
+          (transaction, index) => {
+
+            const transactionId =
+              transaction.transaction_id !==
+                undefined &&
+              transaction.transaction_id !==
+                null
+                ? String(
+                    transaction.transaction_id
+                  )
+                : `fallback-${index}`;
+
+
+            if (
+              !transactionMap.has(
+                transactionId
+              )
+            ) {
+
+              transactionMap.set(
+                transactionId,
+                transaction
+              );
+
+            }
+
+          }
+        );
+
+
+        const uniqueTransactions =
+          Array.from(
+            transactionMap.values()
+          );
+
+
+        // ==================================================
+        // NEWEST FIRST
+        // ==================================================
+
+        uniqueTransactions.sort(
+          (a, b) => {
+
+            const dateA =
+              parseTransactionDate(
+                a.created_at
+              );
+
+
+            const dateB =
+              parseTransactionDate(
+                b.created_at
+              );
+
+
+            const timeA =
+              dateA
+                ? dateA.getTime()
+                : 0;
+
+
+            const timeB =
+              dateB
+                ? dateB.getTime()
+                : 0;
+
+
+            if (
+              timeA !== timeB
+            ) {
+
+              return (
+                timeB - timeA
+              );
+
+            }
+
+
+            return (
+              Number(
+                b.transaction_id || 0
+              ) -
+              Number(
+                a.transaction_id || 0
+              )
+            );
+
+          }
+        );
+
+
+        setTransactions(
+          uniqueTransactions
+        );
+
+
+      } catch (err) {
+
+        console.error(
+          "Dashboard data error:",
+          err
+        );
+
+
+        if (
+          err.response?.status === 401
+        ) {
+
+          alert(
+            "Session expired. Please login again."
+          );
+
+
+          localStorage.clear();
+
+
+          navigate(
+            "/",
+            {
+              replace: true
+            }
+          );
+
+        }
+
+      }
+
+    },
+    [
+      navigate,
+      parseTransactionDate
+    ]
+  );
+
+
+  // ==========================================================
+  // LOAD DATA WHEN DASHBOARD OPENS
+  // ==========================================================
+
+  useEffect(() => {
+
+    fetchDashboardData();
+
+  }, [fetchDashboardData]);
+
+
+  // ==========================================================
+  // REFRESH DASHBOARD AFTER TRANSACTION
+  // ==========================================================
+
+  useEffect(() => {
+
+    const handleDataUpdate = () => {
+
+      fetchDashboardData();
+
+    };
+
+
+    window.addEventListener(
+      "bankDataUpdated",
+      handleDataUpdate
+    );
 
 
     return () => {
 
-      mounted = false;
+      window.removeEventListener(
+        "bankDataUpdated",
+        handleDataUpdate
+      );
 
     };
 
-  }, [
-    navigate,
-    parseTransactionDate
-  ]);
+  }, [fetchDashboardData]);
 
 
   // ==========================================================

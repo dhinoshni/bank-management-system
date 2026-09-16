@@ -162,13 +162,7 @@ Both the frontend and backend need to run simultaneously for the application to 
 - `POST /transactions` - Deposit / Withdraw / Transfer money
 - `GET /transactions/<account_id>` - Fetch transaction history of an account
 
-## Security Considerations
 
-- **Password Encryption:** All passwords are encrypted before storage in the database.
-- **Session Management:** Secure session handling to prevent unauthorized access.
-- **Input Validation:** All user inputs are validated to prevent SQL injection and XSS attacks.
-- **CORS Configuration:** Configure CORS settings appropriately for frontend-backend communication.
-- **Database Credentials:** Keep database credentials secure and never commit them to version control.
 
 ## Troubleshooting
 
@@ -183,3 +177,17 @@ Both the frontend and backend need to run simultaneously for the application to 
 - Check that the backend is running on `http://127.0.0.1:5000` before starting the frontend.
 - Verify CORS is properly configured in the Flask backend.
 
+
+## AWS Deployment Challenges
+
+- **Storage Issue:** EC2 server initially had only 8 GB storage, so it was increased to 16 GB.
+
+- **Memory Issue:** React build required more memory than the 1 GB RAM available. A 2 GB swap file was created to complete the build successfully.
+
+- **Frontend API Issue:** The frontend was using localhost for the backend. It was changed to `/api` and Nginx was configured to connect the frontend with the Flask backend.
+
+- **MySQL Connection Issue:** Restarting MySQL caused stale database connections. MySQL connection pooling was implemented to handle connections more reliably.
+
+- **Production Setup:** Flask was configured with Gunicorn and Nginx was used as a reverse proxy to serve the application.
+
+- **IP Change:** An Elastic IP was configured so the application can be accessed using a stable public IP.

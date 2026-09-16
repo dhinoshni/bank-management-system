@@ -1,29 +1,128 @@
 from functools import wraps
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 import mysql.connector
+from mysql.connector import pooling
+from werkzeug.local import LocalProxy
 from config import Config
 import bcrypt
 import jwt
 from datetime import datetime, timedelta, timezone
+
 
 app = Flask(__name__)
 CORS(app)
 
 
 # ==========================================================
-# DATABASE CONNECTION
+# DATABASE CONNECTION POOL
 # ==========================================================
 
-db = mysql.connector.connect(
+db_pool = pooling.MySQLConnectionPool(
+    pool_name="bank_management_pool",
+    pool_size=5,
+    pool_reset_session=True,
     host=Config.MYSQL_HOST,
     user=Config.MYSQL_USER,
     password=Config.MYSQL_PASSWORD,
-    database=Config.MYSQL_DB
+    database=Config.MYSQL_DB,
+    connection_timeout=5
 )
 
-cursor = db.cursor(dictionary=True)
+
+# Request-local database connection and cursor.
+# This prevents sharing one stale global connection/cursor.
+db = LocalProxy(lambda: g.db)
+cursor = LocalProxy(lambda: g.cursor)
+
+
+# ==========================================================
+# DATABASE CONNECTION RECOVERY
+# ==========================================================
+
+def create_database_connection():
+
+    connection = None
+
+    try:
+
+        # Get a connection from the pool
+        connection = db_pool.get_connection()
+
+        # Check whether the connection is alive
+        connection.ping(
+            reconnect=True,
+            attempts=1,
+            delay=0
+        )
+
+        return connection
+
+    except mysql.connector.Error:
+
+        # Close stale pooled connection
+        if connection is not None:
+
+            try:
+                connection.close()
+            except Exception:
+                pass
+
+        # Create a completely new connection
+        connection = mysql.connector.connect(
+            host=Config.MYSQL_HOST,
+            user=Config.MYSQL_USER,
+            password=Config.MYSQL_PASSWORD,
+            database=Config.MYSQL_DB,
+            connection_timeout=5
+        )
+
+        connection.ping(
+            reconnect=True,
+            attempts=1,
+            delay=0
+        )
+
+        return connection
+
+
+@app.before_request
+def ensure_db_connection():
+
+    try:
+
+        g.db = create_database_connection()
+        g.cursor = g.db.cursor(dictionary=True)
+
+    except mysql.connector.Error as e:
+
+        return jsonify({
+            "status": "failure",
+            "message": "Database connection unavailable",
+            "error": str(e)
+        }), 503
+
+
+@app.teardown_request
+def close_database_connection(exception=None):
+
+    request_cursor = g.pop("cursor", None)
+    request_db = g.pop("db", None)
+
+    if request_cursor is not None:
+
+        try:
+            request_cursor.close()
+        except Exception:
+            pass
+
+    if request_db is not None:
+
+        try:
+            request_db.close()
+        except Exception:
+            pass
 
 
 # ==========================================================
@@ -61,6 +160,7 @@ def token_required(f):
         auth_header = request.headers.get("Authorization")
 
         if not auth_header:
+
             return jsonify({
                 "status": "failure",
                 "message": "Authorization token is required"
@@ -69,6 +169,7 @@ def token_required(f):
         parts = auth_header.split()
 
         if len(parts) != 2 or parts[0].lower() != "bearer":
+
             return jsonify({
                 "status": "failure",
                 "message": "Invalid authorization header"
@@ -122,6 +223,7 @@ def create_user():
         data = request.get_json()
 
         if not data:
+
             return jsonify({
                 "status": "failure",
                 "message": "User data is required"
@@ -133,6 +235,7 @@ def create_user():
         phone = data.get('phone')
 
         if not name or not email or not password or not phone:
+
             return jsonify({
                 "status": "failure",
                 "message": "All user details are required"
@@ -144,6 +247,7 @@ def create_user():
         )
 
         if cursor.fetchone():
+
             return jsonify({
                 "status": "failure",
                 "message": "Email already exists"
@@ -238,6 +342,7 @@ def get_user_by_id(user_id):
         logged_in_user_id = request.user['user_id']
 
         if int(user_id) != int(logged_in_user_id):
+
             return jsonify({
                 "status": "failure",
                 "message": "You can view only your own profile"
@@ -256,6 +361,7 @@ def get_user_by_id(user_id):
         user = cursor.fetchone()
 
         if not user:
+
             return jsonify({
                 "status": "failure",
                 "message": "User not found"
@@ -288,6 +394,7 @@ def update_user(user_id):
         logged_in_user_id = request.user['user_id']
 
         if int(user_id) != int(logged_in_user_id):
+
             return jsonify({
                 "status": "failure",
                 "message": "You can update only your own profile"
@@ -299,6 +406,7 @@ def update_user(user_id):
         phone = data.get('phone')
 
         if not name or not phone:
+
             return jsonify({
                 "status": "failure",
                 "message": "Name and phone are required"
@@ -313,6 +421,7 @@ def update_user(user_id):
         user = cursor.fetchone()
 
         if not user:
+
             return jsonify({
                 "status": "failure",
                 "message": "User not found"
@@ -360,6 +469,7 @@ def delete_user(user_id):
         logged_in_user_id = request.user['user_id']
 
         if int(user_id) != int(logged_in_user_id):
+
             return jsonify({
                 "status": "failure",
                 "message": "You can delete only your own account"
@@ -374,6 +484,7 @@ def delete_user(user_id):
         user = cursor.fetchone()
 
         if not user:
+
             return jsonify({
                 "status": "failure",
                 "message": "User not found"
@@ -448,6 +559,7 @@ def login():
         data = request.get_json()
 
         if not data:
+
             return jsonify({
                 "status": "failure",
                 "message": "Login data is required"
@@ -457,6 +569,7 @@ def login():
         password = data.get('password')
 
         if not email or not password:
+
             return jsonify({
                 "status": "failure",
                 "message": "Email and password are required"
@@ -471,6 +584,7 @@ def login():
         user = cursor.fetchone()
 
         if not user:
+
             return jsonify({
                 "status": "failure",
                 "message": "Invalid email or password"
@@ -482,6 +596,7 @@ def login():
         )
 
         if not password_matches:
+
             return jsonify({
                 "status": "failure",
                 "message": "Invalid email or password"
@@ -521,7 +636,8 @@ def login():
             "message": str(e)
         }), 500
 
-    # ==========================================================
+
+# ==========================================================
 # FORGOT PASSWORD
 # ==========================================================
 
@@ -529,9 +645,11 @@ def login():
 def forgot_password():
 
     try:
+
         data = request.get_json()
 
         if not data:
+
             return jsonify({
                 "status": "failure",
                 "message": "Data is required"
@@ -541,12 +659,12 @@ def forgot_password():
         new_password = data.get('new_password')
 
         if not email or not new_password:
+
             return jsonify({
                 "status": "failure",
                 "message": "Email and new password are required"
             }), 400
 
-        # Find user
         cursor.execute("""
             SELECT user_id
             FROM users
@@ -556,18 +674,17 @@ def forgot_password():
         user = cursor.fetchone()
 
         if not user:
+
             return jsonify({
                 "status": "failure",
                 "message": "Email not found"
             }), 404
 
-        # Hash new password
         password_hash = bcrypt.hashpw(
             new_password.encode('utf-8'),
             bcrypt.gensalt()
         ).decode('utf-8')
 
-        # Update password
         cursor.execute("""
             UPDATE users
             SET password = %s
@@ -599,11 +716,6 @@ def forgot_password():
 # ==========================================================
 
 
-# ==========================================================
-# ACCOUNT APIs
-# ==========================================================
-
-
 # ----------------------------------------------------------
 # CREATE ACCOUNT
 # ----------------------------------------------------------
@@ -617,10 +729,6 @@ def create_account():
         data = request.get_json()
         user_id = request.user['user_id']
 
-        # ==================================================
-        # GET ACCOUNT DATA
-        # ==================================================
-
         account_number = data.get('account_number')
         account_type = data.get('account_type')
         branch = data.get('branch')
@@ -632,6 +740,7 @@ def create_account():
         # ==================================================
 
         if account_number is None:
+
             return jsonify({
                 "status": "failure",
                 "message": "Account number is required"
@@ -643,6 +752,7 @@ def create_account():
             not account_number.isdigit()
             or len(account_number) != 10
         ):
+
             return jsonify({
                 "status": "failure",
                 "message": "Account number must be exactly 10 digits"
@@ -658,6 +768,7 @@ def create_account():
             or not bank_name
             or not ifsc_code
         ):
+
             return jsonify({
                 "status": "failure",
                 "message": "All account details are required"
@@ -667,18 +778,16 @@ def create_account():
         # CHECK USER EXISTS
         # ==================================================
 
-        cursor.execute(
-            """
+        cursor.execute("""
             SELECT user_id
             FROM users
             WHERE user_id = %s
-            """,
-            (user_id,)
-        )
+        """, (user_id,))
 
         user = cursor.fetchone()
 
         if not user:
+
             return jsonify({
                 "status": "failure",
                 "message": "User not found"
@@ -688,18 +797,16 @@ def create_account():
         # CHECK ACCOUNT NUMBER ALREADY EXISTS
         # ==================================================
 
-        cursor.execute(
-            """
+        cursor.execute("""
             SELECT account_id
             FROM accounts
             WHERE account_number = %s
-            """,
-            (account_number,)
-        )
+        """, (account_number,))
 
         existing_account = cursor.fetchone()
 
         if existing_account:
+
             return jsonify({
                 "status": "failure",
                 "message": "Account number already exists"
@@ -823,6 +930,7 @@ def lookup_account(account_number):
         account = cursor.fetchone()
 
         if not account:
+
             return jsonify({
                 "status": "failure",
                 "message": "Account not found"
@@ -883,6 +991,7 @@ def get_account_by_id(account_id):
         account = cursor.fetchone()
 
         if not account:
+
             return jsonify({
                 "status": "failure",
                 "message": "Account not found"
@@ -930,6 +1039,7 @@ def delete_account(account_id):
         account = cursor.fetchone()
 
         if not account:
+
             return jsonify({
                 "status": "failure",
                 "message": "Account not found"
@@ -987,6 +1097,7 @@ def perform_transaction():
         amount = float(data.get('amount', 0))
 
         if amount <= 0:
+
             return jsonify({
                 "status": "failure",
                 "message": "Amount must be greater than zero"
@@ -1020,6 +1131,7 @@ def perform_transaction():
             account = cursor.fetchone()
 
             if not account:
+
                 return jsonify({
                     "status": "failure",
                     "message": "Account not found"
@@ -1098,6 +1210,7 @@ def perform_transaction():
             account = cursor.fetchone()
 
             if not account:
+
                 return jsonify({
                     "status": "failure",
                     "message": "Account not found"
@@ -1108,6 +1221,7 @@ def perform_transaction():
             )
 
             if current_balance < amount:
+
                 return jsonify({
                     "status": "failure",
                     "message": "Insufficient balance"
@@ -1173,12 +1287,14 @@ def perform_transaction():
             )
 
             if not from_account_id or not to_account_id:
+
                 return jsonify({
                     "status": "failure",
                     "message": "Sender and receiver accounts are required"
                 }), 400
 
             if str(from_account_id) == str(to_account_id):
+
                 return jsonify({
                     "status": "failure",
                     "message": "Sender and receiver accounts cannot be the same"
@@ -1225,6 +1341,7 @@ def perform_transaction():
             receiver = cursor.fetchone()
 
             if not sender or not receiver:
+
                 return jsonify({
                     "status": "failure",
                     "message": "Invalid account"
@@ -1235,6 +1352,7 @@ def perform_transaction():
             )
 
             if sender_balance < amount:
+
                 return jsonify({
                     "status": "failure",
                     "message": "Insufficient balance"
@@ -1433,6 +1551,7 @@ def get_transaction_history(account_id):
         account = cursor.fetchone()
 
         if not account:
+
             return jsonify({
                 "status": "failure",
                 "message": "Account not found"
