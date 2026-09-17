@@ -11,6 +11,18 @@ The Bank Management System is a full-stack web application designed for secure b
 
 Users can register, log in, manage bank accounts, deposit and withdraw money, transfer funds, and view transaction history through a modern and responsive interface.
 
+## Features
+
+- **User Registration & Authentication:** Register and log in securely using JWT authentication and bcrypt password hashing.
+- **Account Management:** Create, view, update, and manage multiple bank account details.
+- **Deposit & Withdrawal:** Secure money transactions with instant balance updates and validation.
+- **Fund Transfer:**Transfer funds between accounts with account validation, balance validation, and error handling.
+- **Transaction History:** View detailed logs and records of all financial activities.
+- **Balance Inquiry:** Check account balance in real-time from the dashboard.
+- **Profile Management:** Update user profile information and manage account settings.
+- **Password Recovery:** Reset the account password through the forgot password functionality.
+- **Input Validation & Security:** Ensures data integrity, prevents unauthorized access, and secure transactions.
+
 
 ## System Architecture
 
@@ -25,7 +37,7 @@ Flask Backend
 MySQL Database
        │
        └── Hosted on AWS EC2
----
+```
 
 ## Tech Stack
 
@@ -52,17 +64,6 @@ MySQL Database
 - Gunicorn
 
 
-## Features
-
-- **User Registration & Authentication:** Register and log in securely using JWT authentication and bcrypt password hashing.
-- **Account Management:** Create, view, update, and manage multiple bank account details.
-- **Deposit & Withdrawal:** Secure money transactions with instant balance updates and validation.
-- **Fund Transfer:**Transfer funds between accounts with account validation, balance validation, and error handling.
-- **Transaction History:** View detailed logs and records of all financial activities.
-- **Balance Inquiry:** Check account balance in real-time from the dashboard.
-- **Profile Management:** Update user profile information and manage account settings.
-- **Password Recovery:** Reset the account password through the forgot password functionality.
-- **Input Validation & Security:** Ensures data integrity, prevents unauthorized access, and secure transactions.
 
 
 ## Project Structure
