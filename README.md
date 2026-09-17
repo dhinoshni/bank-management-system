@@ -1,33 +1,69 @@
 # Bank Management System
 
+
+## Live Application
+
+🔗 **Live Demo:** http://3.216.107.106
+
 ## Project Overview
 
-The Bank Management System is a full-stack web application designed for secure banking operations. It features a React-based frontend for user interactions and a Python Flask backend with MySQL database for secure authentication, transaction management, and account operations. Users can register, login, deposit, withdraw, transfer funds, and view transaction history with a modern, responsive interface.
+The Bank Management System is a full-stack web application designed for secure banking operations. It features a React-based frontend, a Python Flask backend, and a MySQL database for authentication, account management, and transaction processing.
+
+Users can register, log in, manage bank accounts, deposit and withdraw money, transfer funds, and view transaction history through a modern and responsive interface.
+
+
+## System Architecture
+
+```text
+React Frontend
+  │
+  │ REST API
+  ▼
+Flask Backend
+  │
+  ▼
+MySQL Database
+       │
+       └── Hosted on AWS EC2
+---
 
 ## Tech Stack
 
-### Backend
-- **Framework:** Python, Flask
-- **Database:** MySQL
-- **Database Connector:** `mysql-connector-python`
-
 ### Frontend
-- **Framework:** React
-- **Styling:** CSS
-- **Package Manager:** npm
+- React.js
+- JavaScript
+- CSS
+- Axios
+- React Router
+
+### Backend
+- Python
+- Flask
+- REST API
+- JWT Authentication
+- bcrypt
+
+### Database
+- MySQL
+
+### Deployment
+- AWS EC2
+- Nginx
+- Gunicorn
+
 
 ## Features
 
-- **User Registration & Authentication:** Secure signup and login with encrypted password handling and session management.
+- **User Registration & Authentication:** Register and log in securely using JWT authentication and bcrypt password hashing.
 - **Account Management:** Create, view, update, and manage multiple bank account details.
 - **Deposit & Withdrawal:** Secure money transactions with instant balance updates and validation.
-- **Fund Transfer:** Transfer money between accounts with comprehensive validation and error handling.
+- **Fund Transfer:**Transfer funds between accounts with account validation, balance validation, and error handling.
 - **Transaction History:** View detailed logs and records of all financial activities.
 - **Balance Inquiry:** Check account balance in real-time from the dashboard.
 - **Profile Management:** Update user profile information and manage account settings.
-- **Password Recovery:** Forgot password functionality to help users regain access.
+- **Password Recovery:** Reset the account password through the forgot password functionality.
 - **Input Validation & Security:** Ensures data integrity, prevents unauthorized access, and secure transactions.
-- **Responsive UI:** Modern React-based frontend with responsive design for desktop and mobile devices.
+
 
 ## Project Structure
 
@@ -86,7 +122,7 @@ bank-management-system/
     MYSQL_HOST = "localhost"
     MYSQL_USER = "root"
     MYSQL_PASSWORD = "your_password"     # Change this to your local MySQL password
-    MYSQL_DATABASE = "bank_db"
+    MYSQL_DB = "bank_db"
     ```
 
 ### 3. Backend Setup
@@ -162,32 +198,15 @@ Both the frontend and backend need to run simultaneously for the application to 
 - `POST /transactions` - Deposit / Withdraw / Transfer money
 - `GET /transactions/<account_id>` - Fetch transaction history of an account
 
+## AWS Deployment
+
+The application is deployed on an AWS EC2 instance.
+
+- **EC2:** Application hosting
+- **Nginx:** Frontend serving and API reverse proxy
+- **Gunicorn:** Flask application server
+- **MySQL:** Database
+- **Elastic IP:** Stable public access
 
 
-## Troubleshooting
 
-### Backend Issues
-- Ensure MySQL server is running and `bank_db` database exists.
-- Verify database credentials in `config.py` match your MySQL setup.
-- Check that all Python dependencies are installed: `pip install -r requirements.txt`
-
-### Frontend Issues
-- Ensure Node.js and npm are installed correctly.
-- Clear npm cache if dependency issues occur: `npm cache clean --force`
-- Check that the backend is running on `http://127.0.0.1:5000` before starting the frontend.
-- Verify CORS is properly configured in the Flask backend.
-
-
-## AWS Deployment Challenges
-
-- **Storage Issue:** EC2 server initially had only 8 GB storage, so it was increased to 16 GB.
-
-- **Memory Issue:** React build required more memory than the 1 GB RAM available. A 2 GB swap file was created to complete the build successfully.
-
-- **Frontend API Issue:** The frontend was using localhost for the backend. It was changed to `/api` and Nginx was configured to connect the frontend with the Flask backend.
-
-- **MySQL Connection Issue:** Restarting MySQL caused stale database connections. MySQL connection pooling was implemented to handle connections more reliably.
-
-- **Production Setup:** Flask was configured with Gunicorn and Nginx was used as a reverse proxy to serve the application.
-
-- **IP Change:** An Elastic IP was configured so the application can be accessed using a stable public IP.
