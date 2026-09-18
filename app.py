@@ -125,6 +125,25 @@ def close_database_connection(exception=None):
             pass
 
 
+@app.before_request
+def check_mysql_connection():
+    global db, cursor
+
+    try:
+        db.ping(reconnect=True, attempts=3, delay=2)
+        cursor = db.cursor(dictionary=True)
+    except Exception:
+        db = mysql.connector.connect(
+            host=Config.MYSQL_HOST,
+            user=Config.MYSQL_USER,
+            password=Config.MYSQL_PASSWORD,
+            database=Config.MYSQL_DB,
+            connection_timeout=30,
+            autocommit=False
+        )
+        cursor = db.cursor(dictionary=True)
+
+
 # ==========================================================
 # JWT SETTINGS
 # ==========================================================
